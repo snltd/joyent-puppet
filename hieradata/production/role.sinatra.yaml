@@ -6,6 +6,7 @@ sinatra:
         repo: https://github.com/snltd/rdfisher
         dir: /www/rdfisher
         server_name: rdfisher.co.uk
+        default: true
 
     cassingle:
         port: 8002
