@@ -1,0 +1,12 @@
+PATH=/bin:/usr/bin:/usr/sbin:/sbin:/opt/local/bin:/usr/local/bin:/opt/local/ruby/bin:${HOME}/bin
+
+HISTSIZE=5000
+
+export ENV=${HOME}/.profile
+export EDITOR=vi
+PS1="[$(uname -n):\$PWD]$ "
+
+set -o vi
+
+alias cx='chmod +x'
+alias rrp='. ${HOME}/.profile'

@@ -1,0 +1,13 @@
+---
+:backends:
+  - yaml
+
+:hierarchy:
+  - common
+  - "%{::environment}/%{::hostname}"
+  - "%{::environment}/role.%{::role}"
+  - "%{::environment}/mod.%{module_name}"
+  - "%{::environment}/common"
+
+:yaml:
+  :datadir: hieradata

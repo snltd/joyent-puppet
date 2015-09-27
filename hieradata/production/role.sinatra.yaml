@@ -1,0 +1,20 @@
+---
+
+sinatra:
+    rdfisher:
+        port: 8001
+        repo: https://github.com/snltd/rdfisher
+        dir: /www/rdfisher
+        server_name: rdfisher.co.uk
+
+    cassingle:
+        port: 8002
+        repo: https://github.com/snltd/cassingle
+        dir: /www/cassingle
+        server_name: cassingle.rdfisher.co.uk
+
+    meetup-generator:
+        port: 8003
+        repo: https://github.com/snltd/meetup-generator
+        dir: /www/meetup-generator
+        server_name: meetup-generator.rdfisher.co.uk

@@ -1,0 +1,72 @@
+<?xml version='1.0'?>
+
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+
+<service_bundle type='manifest' name='<%= @base_svc %>:sinatra:<%= @site %>'>
+
+<service
+  name='application/sinatra/<%= @site %>'
+  type='service'
+  version='1'>
+
+<single_instance />
+
+<property_group name='startd' type='framework'>
+
+   <stability value='Unstable' />
+
+  <propval
+    name='duration'
+    type='astring'
+    value='transient' />
+
+</property_group>
+
+<instance name='default' enabled='true'>
+
+  <!-- Run in multi-user mode -->
+
+  <dependency
+    name='multi-user'
+    grouping='require_all'
+    restart_on='none'
+    type='service'>
+
+    <service_fmri value='svc:/milestone/multi-user-server:default' />
+
+  </dependency>
+
+  <exec_method
+    name='start'
+    type='method'
+    timeout_seconds='0'
+    exec='<%= @rackup %> -D -p <%= @params['port'] %> <%= File.join(@params['dir'], 'config.ru')%>'>
+    <method_context>
+      <method_credential
+        user='<%= @user %>'
+        group='nogroup'
+        privileges='basic,!proc_session,!proc_info,!file_link_any'/>
+    </method_context>
+  </exec_method>
+
+  <exec_method
+    name='stop'
+    type='method'
+    timeout_seconds='10'
+    exec='/usr/bin/pkill -f <% @params['dir'] %>'/>
+
+</instance>
+
+<template>
+
+  <common_name>
+    <loctext xml:lang='C'>
+      <%= @name %> Sinatra application
+    </loctext>
+  </common_name>
+
+</template>
+
+</service>
+
+</service_bundle>
