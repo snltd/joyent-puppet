@@ -18,12 +18,12 @@ BASE=`dirname $0`
 
 cd $BASE
 
-FACTERLIB="$(pwd)/facts"
+FACTERLIB="${BASE}/facts"
 
 export FACTERLIB
 
 /opt/local/ruby/bin/puppet apply \
     --modulepath=modules:vendor/modules \
-    --hiera_config=/mnt/hiera.yaml \
+    --hiera_config=${BASE}/hiera.yaml \
     --verbose \
     manifests/site.pp
