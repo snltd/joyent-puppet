@@ -19,3 +19,9 @@ sinatra:
         repo: https://github.com/snltd/meetup-generator
         dir: /www/meetup-generator
         server_name: meetup.rdfisher.co.uk
+
+    snltd:
+        port: 8004
+        repo: https://github.com/snltd/snltd
+        dir: /www/snltd
+        server_name: snltd.co.uk
