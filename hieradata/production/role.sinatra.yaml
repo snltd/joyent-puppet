@@ -24,4 +24,4 @@ sinatra:
         port: 8004
         repo: https://github.com/snltd/snltd
         dir: /www/snltd
-        server_name: snltd.co.uk
+        server_name: "*.snltd.co.uk snltd.co.uk"
