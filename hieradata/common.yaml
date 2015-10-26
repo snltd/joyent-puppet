@@ -10,8 +10,5 @@ basenode::dns_client::dns_servers:
   - 8.8.8.8
   - 8.8.4.4
 
-basenode::packages::installed:
-  - git-base
-
 basenode::packages::absent:
   - postfix
