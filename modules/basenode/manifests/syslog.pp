@@ -12,4 +12,9 @@ class basenode::syslog() {
     group => 'sys',
   }
 
+  file { '/etc/syslog.conf':
+    source => 'puppet:///modules/basenode/syslog.conf',
+    notify => Service['system-log'],
+  }
+
 }

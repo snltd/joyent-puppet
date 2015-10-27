@@ -6,6 +6,7 @@ class basenode(
   include basenode::dns_client
   include basenode::packages
   include basenode::services
+  include basenode::ssh
   include basenode::syslog
   include basenode::users
 }
