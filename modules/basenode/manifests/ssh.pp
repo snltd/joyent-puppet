@@ -16,8 +16,9 @@ class basenode::ssh(
   }
 
   file { '/var/log/sshd.log':
-    mode  => '0600',
-    group => 'sys',
+    ensure => present,
+    mode   => '0600',
+    group  => 'sys',
   }
 
 }
