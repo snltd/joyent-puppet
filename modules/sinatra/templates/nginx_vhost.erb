@@ -12,6 +12,12 @@ server {
 
   location / {
     try_files $uri /cache$uri/ @sinatra;
+
+    if ($http_user_agent = 'Site24x7') {
+      access_log off;
+      return 200;
+    }
+
   }
 
   location @sinatra {
