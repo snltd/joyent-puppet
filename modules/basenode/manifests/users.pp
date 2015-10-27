@@ -14,7 +14,8 @@ class basenode::users() {
     shell      => '/bin/ksh',
     home       => '/home/rob',
     managehome => true,
-    password   => '$6$rpB6y3bt$CCEk9uxyTHGNdZDAGcdswwgltsw6kQdl6CRbhHqnAZOXWjK54gpCtBI7kAI90zuWg82'
+    password   => '$6$rpB6y3bt$CCEk9uxyTHGNdZDAGcdswwgltsw6kQdl6CRbhHqnAZOXWjK54gpCtBI7kAI90zuWg82',
+    profiles   => 'Primary Administrator',
   }
 
   file { '/home/rob/.ssh':
