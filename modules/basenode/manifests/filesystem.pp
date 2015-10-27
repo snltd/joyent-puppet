@@ -9,7 +9,7 @@ class basenode::filesystem {
           '/usr/local/lib/svc/manifest',
           '/usr/local/lib/svc/method',
           '/config'
-         ]:
+        ]:
     ensure  => directory,
   }
 

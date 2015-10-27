@@ -29,20 +29,20 @@ class basenode::users() {
   # Remember default is root:root, 644
 
   file { '/home/rob/.profile':
-    source => 'puppet:///modules/basenode/users/rob/profile',
-    owner  => 'rob',
+    source  => 'puppet:///modules/basenode/users/rob/profile',
+    owner   => 'rob',
     require => User['rob'],
   }
 
   file { '/home/rob/.vimrc':
-    source => 'puppet:///modules/basenode/users/rob/vimrc',
-    owner  => 'rob',
+    source  => 'puppet:///modules/basenode/users/rob/vimrc',
+    owner   => 'rob',
     require => User['rob'],
   }
 
   file { '/home/rob/.inputrc':
-    source => 'puppet:///modules/basenode/users/rob/inputrc',
-    owner  => 'rob',
+    source  => 'puppet:///modules/basenode/users/rob/inputrc',
+    owner   => 'rob',
     require => User['rob'],
   }
 
