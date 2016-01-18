@@ -20,8 +20,8 @@ sinatra:
         dir: /www/meetup-generator
         server_name: meetup.rdfisher.co.uk
 
-    snltd:
+    sysdef:
         port: 8004
-        repo: https://github.com/snltd/snltd
-        dir: /www/snltd
-        server_name: "*.snltd.co.uk snltd.co.uk"
+        repo: https://github.com/snltd/sysdef.xyz
+        dir: /www/sysdef.xyz
+        server_name: "*.sysdef.xyz sysdef.xyz"
