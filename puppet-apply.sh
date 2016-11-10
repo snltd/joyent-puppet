@@ -22,8 +22,10 @@ cd $BASE
 FACTERLIB="${BASE}/facts"
 
 export FACTERLIB
+echo HIERA_CONFIG IS ${BASE}/hiera.yaml 
 
 /opt/local/ruby/bin/puppet apply \
+    --config=./puppet.conf \
     --modulepath=modules:vendor/modules \
     --hiera_config=${BASE}/hiera.yaml \
     --verbose \
