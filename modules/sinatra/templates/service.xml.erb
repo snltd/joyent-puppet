@@ -20,9 +20,7 @@
     grouping='require_all'
     restart_on='none'
     type='service'>
-
     <service_fmri value='svc:/milestone/multi-user-server:default' />
-
   </dependency>
 
   <exec_method
@@ -35,6 +33,9 @@
         user='<%= @user %>'
         group='nogroup'
         privileges='basic,!proc_session,!proc_info,!file_link_any'/>
+      <method_environment>
+        <envvar name="LC_CTYPE" value="en_US.UTF-8"/>
+      </method_environment>
     </method_context>
   </exec_method>
 
