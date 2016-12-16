@@ -2,7 +2,7 @@
 
 classes:
   - basenode
-  - sinatra
+  - diamond
 
 basenode::dns_client::dns_domain: localnet
 basenode::dns_client::dns_servers:
