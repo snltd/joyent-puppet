@@ -20,7 +20,7 @@ class diamond::install(
 
   file { '/var/log/diamond':
     ensure => directory,
-    user   => 'diamond',
+    owner  => 'diamond',
     mode   => '0700',
   }
 }
