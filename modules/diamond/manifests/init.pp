@@ -1,3 +1,6 @@
+#
+# install and configure my customized diamond
+#
 class diamond(
 ){
 

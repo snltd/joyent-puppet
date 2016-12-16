@@ -1,3 +1,6 @@
+#
+# set up everything diamond needs. It's not a package yet.
+#
 class diamond::install(
 )
 {

@@ -10,7 +10,7 @@ class diamond::configure(
   }
 
   exec { 'install_manifest':
-    command => "svccfg import $manifest",
+    command => "svccfg import ${manifest}",
     unless  => 'svcs diamond',
     notify  => Service['diamond'],
   }
