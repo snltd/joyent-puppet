@@ -1,6 +1,8 @@
 [server]
 
 handlers = diamond.handler.wavefront.WavefrontHandler
+user =
+group =
 pid_file = /tmp/diamond.pid
 collectors_path = <%= @diamond_prefix %>/share/sunos-diamond-collectors/collectors/,<%= @diamond_prefix %>/share/diamond/collectors
 
