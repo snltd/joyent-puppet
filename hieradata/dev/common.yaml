@@ -1,4 +1,5 @@
 ---
 
-classes:
-  - basenode
+wavefront_endpoint: 192.168.1.30
+diamond_prefix: /opt/local/diamond
+metric_suffix: dev.www.host
