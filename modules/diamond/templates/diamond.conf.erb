@@ -2,20 +2,20 @@
 
 handlers = diamond.handler.wavefront.WavefrontHandler
 pid_file = /tmp/diamond.pid
-collectors_path = <%= diamond_prefix %>/share/sunos-diamond-collectors/collectors/,<%= diamond_prefix %>/share/diamond/collectors
+collectors_path = <%= @diamond_prefix %>/share/sunos-diamond-collectors/collectors/,<%= @diamond_prefix %>/share/diamond/collectors
 
 [handlers]
 keys = rotated_file
 
 [[default]]
 [[WavefrontHandler]]
-host = <%= wavefront_endpoint %>
+host = <%= @wavefront_endpoint %>
 timeout = 15
 
 [collectors]
 [[default]]
 hostname_method = uname_short
-path_suffix = <%= metric_suffix %>
+path_suffix = <%= @metric_suffix %>
 interval = 10
 
 [[ SmfSvcCollector ]]

@@ -4,6 +4,7 @@
 class basenode(
 ) {
   include basenode::dns_client
+  include basenode::filesystem
   include basenode::packages
   include basenode::puppet
   include basenode::services
