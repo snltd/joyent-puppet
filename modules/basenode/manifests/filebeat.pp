@@ -1,0 +1,51 @@
+# Install Filebeat from my public Manta directory, and configure it.
+# The SMF manifest is in ../files and the config file in ../templates.
+#
+class basenode::filebeat(
+  $filebeat = '/opt/local/filebeat',
+)
+{
+  exec { 'download_filebeat':
+    cmd     => '/bin/wget -P /opt/local/bin \
+                https://us-east.manta.joyent.com/snltd/public/filebeat',
+    creates => $filebeat,
+  } ->
+
+  file { $filebeat:
+    mode => '0755',
+  }
+
+  # The logs group can be used to help Filebeat read things without it
+  # needing to run as root.
+  #
+  group { 'logs':
+    gid => 989,
+  } ->
+
+  user { 'logs':
+    uid     => 989,
+    shell   => '/bin/false',
+    comment => 'log shipper',
+    home    => '/var/filebeat',
+    gid     => 989,
+  }
+
+  file { ['/config/filebeat', '/var/log/filebeat', '/var/filebeat']:
+    ensure => directory,
+    owner  => 'logs',
+  }
+
+  file { '/config/filebeat/filebeat.yaml':
+    content => template('basenode/filebeat.yaml.erb'),
+    owner   => 'logs',
+  }
+
+  file { '/opt/local/lib/svc/manifest/filebeat.xml':
+    source => 'puppet:///modules/filebeat/filebeat.xml',
+  } ->
+
+  exec { 'filbeat_svc':
+    cmd    => '/usr/sbin/svccfg /opt/local/lib/svc/manifest/filebeat.xml',
+    unless => '/bin/svcs filebeat',
+  }
+}

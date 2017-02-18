@@ -3,3 +3,5 @@
 wavefront_endpoint: sysdef.noip.me
 diamond_prefix: /opt/local/diamond
 metric_suffix: prod.www.host
+filebeat_endpoints:
+  - sysdef.noip.me

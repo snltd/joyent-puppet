@@ -16,11 +16,9 @@ class sinatra::install(
 
   package { 'nginx':
     ensure => installed,
-  }
+  } ->
 
   file { '/opt/local/etc/nginx/sinatra':
     ensure  => directory,
-    require => Package['nginx'],
   }
-
 }
