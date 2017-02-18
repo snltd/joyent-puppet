@@ -46,7 +46,8 @@ class basenode::filebeat(
   } ->
 
   exec { 'filbeat_svc':
-    command => '/usr/sbin/svccfg /opt/local/lib/svc/manifest/filebeat.xml',
+    command => '/usr/sbin/svccfg import \
+                /opt/local/lib/svc/manifest/filebeat.xml',
     unless  => '/bin/svcs filebeat',
   }
 }
