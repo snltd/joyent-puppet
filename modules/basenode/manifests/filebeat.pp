@@ -2,17 +2,16 @@
 # The SMF manifest is in ../files and the config file in ../templates.
 #
 class basenode::filebeat(
-  $filebeat = '/opt/local/filebeat',
   $filebeat_endpoints = hiera('filebeat_endpoints', []),
 )
 {
   exec { 'download_filebeat':
     command => '/bin/wget --no-check-certificate -P /opt/local/bin \
                 https://us-east.manta.joyent.com/snltd/public/filebeat',
-    creates => $filebeat,
+    creates => '/opt/local/bin/filebeat',
   } ->
 
-  file { $filebeat:
+  file { '/opt/local/bin/filebeat',
     mode => '0755',
   }
 
