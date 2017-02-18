@@ -42,7 +42,7 @@ class basenode::filebeat(
   }
 
   file { '/opt/local/lib/svc/manifest/filebeat.xml':
-    source => 'puppet:///modules/filebeat/filebeat.xml',
+    source => 'puppet:///modules/basenode/filebeat.xml',
   } ->
 
   exec { 'filbeat_svc':
