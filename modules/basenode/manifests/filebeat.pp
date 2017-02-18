@@ -11,7 +11,7 @@ class basenode::filebeat(
     creates => '/opt/local/bin/filebeat',
   } ->
 
-  file { '/opt/local/bin/filebeat',
+  file { '/opt/local/bin/filebeat':
     mode => '0755',
   }
 
