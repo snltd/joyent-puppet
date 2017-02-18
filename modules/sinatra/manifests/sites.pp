@@ -14,7 +14,7 @@ class sinatra::sites(
       ensure   => present,
       provider => git,
       source  =>  $params['repo'],
-      revision => $version,
+      #revision => $version,
     }
 
     file { "/tmp/${site}.xml":
