@@ -7,7 +7,7 @@ class basenode::filebeat(
 )
 {
   exec { 'download_filebeat':
-    command => '/bin/wget -P /opt/local/bin \
+    command => '/bin/wget --no-check-certificate -P /opt/local/bin \
                 https://us-east.manta.joyent.com/snltd/public/filebeat',
     creates => $filebeat,
   } ->
