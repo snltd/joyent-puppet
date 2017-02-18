@@ -3,10 +3,11 @@
 #
 class basenode::filebeat(
   $filebeat = '/opt/local/filebeat',
+  $filebeat_endpoints = hiera('filebeat_endpoints', []),
 )
 {
   exec { 'download_filebeat':
-    cmd     => '/bin/wget -P /opt/local/bin \
+    command => '/bin/wget -P /opt/local/bin \
                 https://us-east.manta.joyent.com/snltd/public/filebeat',
     creates => $filebeat,
   } ->
@@ -45,7 +46,7 @@ class basenode::filebeat(
   } ->
 
   exec { 'filbeat_svc':
-    cmd    => '/usr/sbin/svccfg /opt/local/lib/svc/manifest/filebeat.xml',
-    unless => '/bin/svcs filebeat',
+    command => '/usr/sbin/svccfg /opt/local/lib/svc/manifest/filebeat.xml',
+    unless  => '/bin/svcs filebeat',
   }
 }
