@@ -16,7 +16,7 @@ PATH=/opt/local/bin:/opt/puppet/bin:/bin:/usr/bin:/usr/sbin:/sbin:/opt/local/rub
 
 BASE=`dirname $0`
 cd $BASE
-/opt/local/bin/git pull
+#/opt/local/bin/git pull
 
 export FACTERLIB="${BASE}/facts"
 

@@ -1,0 +1,26 @@
+---
+aggregationIntervalSeconds: 5
+counters:
+  -
+    pattern: '%{HOSTNAME:vhost} %{IPORHOST:clientip} %{USER:user} \[%{HTTPDATE:timestamp}\] (?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|%{DATA:rawrequest}) %{NUMBER:response} (?:%{NUMBER:bytes}|-) %{NUMBER:urt} %{NUMBER:rt}'
+    metricName: 'nginx.code.%{response}'
+    tagKeys:
+      - vhost
+    tagValueLabels:
+      - vhost
+
+histograms:
+  -
+    pattern: '%{HOSTNAME:vhost} %{IPORHOST:clientip} %{USER:user} \[%{HTTPDATE:timestamp}\] (?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|%{DATA:rawrequest}) %{NUMBER:response} (?:%{NUMBER:bytes}|-) %{NUMBER:value} %{NUMBER:rt}'
+    metricName: 'nginx.time.upstream_response'
+    tagKeys:
+      - vhost
+    tagValueLabels:
+      - vhost
+  -
+    pattern: '%{HOSTNAME:vhost} %{IPORHOST:clientip} %{USER:user} \[%{HTTPDATE:timestamp}\] (?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|%{DATA:rawrequest}) %{NUMBER:response} (?:%{NUMBER:bytes}|-) %{NUMBER:urt} %{NUMBER:value}'
+    metricName: 'nginx.time.response'
+    tagKeys:
+      - vhost
+    tagValueLabels:
+      - vhost
