@@ -3,6 +3,7 @@
 #
 class basenode::filebeat(
   $filebeat_endpoints = hiera('filebeat_endpoints', []),
+  $filebeat_svc       = hiera('filebeat_svc'),
 )
 {
   exec { 'download_filebeat':
@@ -44,9 +45,13 @@ class basenode::filebeat(
     source => 'puppet:///modules/basenode/filebeat.xml',
   } ->
 
-  exec { 'filbeat_svc':
+  exec { 'filebeat_svc':
     command => '/usr/sbin/svccfg import \
                 /opt/local/lib/svc/manifest/filebeat.xml',
     unless  => '/bin/svcs filebeat',
+  } ->
+
+  service { 'filebeat':
+    ensure => $filebeat_svc,
   }
 }
