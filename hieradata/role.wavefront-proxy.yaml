@@ -3,5 +3,5 @@
 classes:
   - wavefront_proxy
 
-wavefront_token: 64dd3017-0ca9-4370-91ea-d449f2934bdb
+wavefront_token:
 filebeat_svc: disabled

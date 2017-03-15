@@ -3,11 +3,5 @@
 classes:
   - basenode
 
-basenode::dns_client::dns_domain: localnet
-basenode::dns_client::dns_servers:
-  - 192.168.1.26
-  - 8.8.8.8
-  - 8.8.4.4
-
 basenode::packages::absent:
   - postfix

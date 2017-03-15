@@ -1,7 +1,12 @@
 ---
 
-wavefront_endpoint: sysdef.noip.me
+basenode::dns_client::dns_domain: svc.4c19787d-405b-477a-ab60-100a3acccd5a.eu-ams-1.cns.joyent.com
+basenode::dns_client::dns_servers:
+  - 8.8.8.8
+  - 8.8.4.4
+
+wavefront_endpoint: wavefront
 diamond_prefix: /opt/local/diamond
 metric_suffix: prod.www.host
 filebeat_endpoints:
-  - sysdef.noip.me
+  - wavefront
