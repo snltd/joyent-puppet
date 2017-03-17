@@ -41,18 +41,18 @@ class wavefront_proxy::install(
 
   exec { 'fetch_jre':
     command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
-                ${manta}/server-jre-8u121-solaris-x64.tar.xz",
+                ${manta}/jre-8u121-solaris-x64.tar.xz",
     unless  => "test -f ${tmp}/server-jre-8u121-solaris-x64.tar.xz",
   } ->
 
   exec { 'install_jre':
     command => "/usr/bin/gtar -C /opt/local \
-                -Jxf ${tmp}/server-jre-8u121-solaris-x64.tar.xz",
+                -Jxf ${tmp}/jre-8u121-solaris-x64.tar.xz",
     unless  => 'test -f /opt/local/java/bin/java',
   } ->
 
   file { '/opt/local/java':
     ensure => link,
-    target => '/opt/local/jdk1.8.0_121',
+    target => '/opt/local/jre1.8.0_121',
   }
 }
