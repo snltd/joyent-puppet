@@ -6,6 +6,7 @@ filebeat.prospectors:
     - /var/log/nginx/*.log
   tail_files: true
   registry_file: /var/filebeat/registry
+  close_after: 48h
 
 output.logstash:
   hosts:
