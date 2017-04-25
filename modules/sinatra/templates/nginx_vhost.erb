@@ -17,11 +17,14 @@ server {
       access_log off;
       return 200;
     }
-
   }
 
   location @sinatra {
     proxy_pass            http://localhost:<%= @params['port'] %>;
+    proxy_ignore_headers X-Accel-Expires Expires Cache-Control Set-Cookie;
+    proxy_cache_valid 200 302 60h;
+    proxy_cache           cz;
+    proxy_cache_key       $uri;
     proxy_read_timeout    90;
     proxy_connect_timeout 90;
     proxy_redirect        off;
@@ -30,4 +33,3 @@ server {
     proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
   }
 }
-

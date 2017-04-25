@@ -9,7 +9,7 @@ class sinatra::install(
   user { $user:
     ensure   => present,
     home     => '/var/tmp',
-    shell    => '/bin/ksh',
+    shell    => '/bin/false',
     comment  => 'Sinatra pseudo-user',
     uid      => '4567'
   }
@@ -20,5 +20,10 @@ class sinatra::install(
 
   file { '/opt/local/etc/nginx/sinatra':
     ensure  => directory,
+  }
+
+  file { '/var/nginx/cache':
+    ensure => directory,
+    owner  => 'www',
   }
 }
