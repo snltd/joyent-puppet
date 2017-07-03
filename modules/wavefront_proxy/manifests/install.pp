@@ -4,6 +4,7 @@
 class wavefront_proxy::install(
   $manta = 'https://us-east.manta.joyent.com/snltd/public',
   $tmp   = '/var/tmp',
+  $pkg   = 'proxy-4.12-bin.tar.gz',
 )
 {
   user { 'wavefront':
@@ -29,14 +30,13 @@ class wavefront_proxy::install(
 
   exec { 'fetch_proxy_pkg':
     command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
-                ${manta}/wavefront-proxy-4.7-1.tgz",
-    unless  => "test -f ${tmp}/wavefront-proxy-4.7-1.tgz",
+                ${manta}/${pkg}"
+    unless  => "test -f ${tmp}/${pkg}}",
   } ->
 
   exec { 'install_proxy_pkg':
-    command => "yes | /opt/local/sbin/pkg_add \
-                ${tmp}/wavefront-proxy-4.7-1.tgz",
-    unless  => 'pkgin list | grep -q wavefront-proxy',
+    command => "yes | /opt/local/sbin/pkg_add ${tmp}/${pkg}",
+    unless  => 'pkgin list | grep -q proxy',
   }
 
   exec { 'fetch_jre':
