@@ -9,11 +9,6 @@ class sinatra::nginx()
     notify => Service['nginx'],
   }
 
-  file { '/opt/local/etc/nginx/server_status.conf':
-    source => 'puppet:///modules/sinatra/nginx_status.conf',
-    notify => Service['nginx'],
-  }
-
   service { 'nginx':
     ensure  => running,
     require => File['/opt/local/etc/nginx/nginx.conf'],

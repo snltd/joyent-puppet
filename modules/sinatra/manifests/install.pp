@@ -22,7 +22,7 @@ class sinatra::install(
     ensure  => directory,
   }
 
-  file { '/var/nginx/cache':
+  file { ['/var/nginx', '/var/nginx/cache']:
     ensure => directory,
     owner  => 'www',
   }
