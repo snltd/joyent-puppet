@@ -4,7 +4,7 @@
 class wavefront_proxy::install(
   $manta = 'https://us-east.manta.joyent.com/snltd/public',
   $tmp   = '/var/tmp',
-  $pkg   = 'proxy-4.12-bin.tar.gz',
+  $pkg   = 'wavefront-proxy-4.12-1.tgz',
 )
 {
   user { 'wavefront':
