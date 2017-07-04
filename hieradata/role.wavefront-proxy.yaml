@@ -3,5 +3,4 @@
 classes:
   - wavefront_proxy
 
-wavefront_token:
-filebeat_svc: disabled
+filebeat_svc: stopped
