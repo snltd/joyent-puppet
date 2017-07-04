@@ -30,7 +30,7 @@ class wavefront_proxy::install(
 
   exec { 'fetch_proxy_pkg':
     command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
-                ${manta}/${pkg}"
+                ${manta}/${pkg}",
     unless  => "test -f ${tmp}/${pkg}}",
   } ->
 
