@@ -7,14 +7,18 @@ counters:
     tagKeys:
       - vhost
       - path
+      - env
     tagValueLabels:
       - vhost
       - request
+      - <%= @environment %>
 
 histograms:
   - pattern: '%{HOSTNAME:vhost} %{IPORHOST:clientip} - \[%{HTTPDATE:timestamp}\] "(?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|%{DATA:rawrequest})" %{NUMBER:response} (?:%{NUMBER:bytes}|-) %{NOTSPACE:urt} %{NUMBER:value}'
     metricName: 'nginx.time.response'
     tagKeys:
      - vhost
+     - env
     tagValueLabels:
       - vhost
+      - <%= @environment %>

@@ -20,7 +20,7 @@ class wavefront_proxy::configure(
   }
 
   file { '/config/wavefront/logsIngestion.yaml':
-    source => 'puppet:///modules/wavefront_proxy/logsIngestion.yaml',
+    content => template('wavefront_proxy/logsIngestion.yaml.erb'),
   }
 
   file { '/config/wavefront/preprocessor_rules.yaml':
