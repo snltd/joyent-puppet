@@ -104,7 +104,7 @@ def run_by
   case prog
   when %r{/sshd$}
     'interactive'
-  when 'sshd:', '/usr/bin/python'
+  when 'sshd:', '/usr/bin/python', '/lib/svc/bin/svc.startd'
     'bootstrapper'
   else
     prog
