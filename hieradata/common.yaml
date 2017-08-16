@@ -5,3 +5,9 @@ classes:
 
 basenode::packages::absent:
   - postfix
+
+wf_report_tags:
+  - status
+  - git_rev
+  - run_by
+  - puppet_version
