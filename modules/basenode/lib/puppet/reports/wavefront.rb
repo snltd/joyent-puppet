@@ -140,6 +140,10 @@ Puppet::Reports.register_report(:wavefront) do
     File.open(SCOREBOARD, 'w') { |f| f.write(run_no + 1) }
   end
 
+  # Turn the `metrics` object which Puppet gives us into actual
+  # Wavefront points.
+  # @return [Array] points ready to be pushed to Wavefront.
+  #
   def metrics_as_points
     ts = Time.now.to_i
 
@@ -152,11 +156,11 @@ Puppet::Reports.register_report(:wavefront) do
     end
   end
 
+  # Send the metrics to Wavefront, and update the scoreboard file.
+  #
   def process
     wf = Wavefront::Write.new({ proxy: ENDPOINT, port: 2878 },
-                              tags: setup_tags)
-    wf.write(metrics_as_points)
-    Puppet.info(wf.summary)
+                              tags: setup_tags).write(metrics_as_points)
     update_run_number
   end
 end
