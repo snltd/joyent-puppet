@@ -106,6 +106,8 @@ def run_by
     'interactive'
   when 'sshd:', '/usr/bin/python', '/lib/svc/bin/svc.startd'
     'bootstrapper'
+  when /cron/
+    'cron'
   else
     prog
   end
