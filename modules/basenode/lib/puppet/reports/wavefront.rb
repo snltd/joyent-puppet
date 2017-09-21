@@ -14,8 +14,21 @@
 # status:         what happened on the run: one of 'failed', 'changed',
 #                 or 'unchanged'
 # environment:    the Puppet environment which was used
+# run_no:         how many times Puppet (specifically the reporter)
+#                 has run on this host
 #
-# run_no:   ZZ
+# The following Hiera variables can be used to configure the
+# reporter:
+#   wavefront_endpoint  the IP/DNS name of a Wavefront proxy
+#   wf_report_tags      an array of tags to apply to each point
+#                        (see above)
+#   wf_report_path      the base path for metrics. The name of each
+#                       report value will be dot-appended
+#
+# Requires: wavefront-sdk gem (https://github.com/snltd/wavefront-sdk)
+#           a writeable directory CF_DIR to store state
+# Supports: SmartOS, Solaris, Linux, FreeBSD, OpenBSD
+#
 
 require 'puppet'
 require 'hiera'
@@ -27,14 +40,15 @@ SKIP_FILE  = CF_DIR + 'no_report'
 SCOREBOARD = CF_DIR + 'scoreboard'
 
 HIERA      = Hiera.new(config: lambda {
-    %w(/etc/puppetlabs/puppet /etc/puppet /opt/puppet).each do |d|
-      p = Pathname.new(d) + 'hiera.yaml'
-      return p.to_s if p.exist?
-    end }.call)
+  %w[/etc/puppetlabs/puppet /etc/puppet /opt/puppet].each do |d|
+    p = Pathname.new(d) + 'hiera.yaml'
+    return p.to_s if p.exist?
+  end
+}.call)
 
-SCOPE      = { '::environment' => Facter[:environment].value }
+SCOPE      = { '::environment' => Facter[:environment].value }.freeze
 ENDPOINT   = HIERA.lookup('wavefront_endpoint', 'wf', SCOPE)
-TAGS       = HIERA.lookup('wf_report_tags', %w(run_by status), SCOPE)
+TAGS       = HIERA.lookup('wf_report_tags', %w[run_by status], SCOPE)
 PATH_BASE  = HIERA.lookup('wf_report_path', 'puppet', SCOPE)
 
 # Examine the process table. Works for Solaris, FreeBSD, OpenBSD and
@@ -114,7 +128,6 @@ def run_by
 end
 
 Puppet::Reports.register_report(:wavefront) do
-
   # @return [String] the short git rev for the repo containing this
   #   file. Assumes you have the git CLI installed, but if you
   #   don't, it's unlikely you'd be using a clone of a git repo.
@@ -150,7 +163,7 @@ Puppet::Reports.register_report(:wavefront) do
     ts = Time.now.to_i
 
     metrics.each_with_object([]) do |(category, cat_values), aggr|
-      cat_values.values.each do |v|
+      cat_values.each_value do |v|
         aggr.<< ({ path:  [PATH_BASE, category, v[0]].join('.'),
                    value: v[2],
                    ts:    ts })
@@ -161,8 +174,8 @@ Puppet::Reports.register_report(:wavefront) do
   # Send the metrics to Wavefront, and update the scoreboard file.
   #
   def process
-    wf = Wavefront::Write.new({ proxy: ENDPOINT, port: 2878 },
-                              tags: setup_tags).write(metrics_as_points)
+    Wavefront::Write.new({ proxy: ENDPOINT, port: 2878 },
+                         tags: setup_tags).write(metrics_as_points)
     update_run_number
   end
 end
