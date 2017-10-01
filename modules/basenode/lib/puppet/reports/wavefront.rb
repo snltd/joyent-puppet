@@ -162,8 +162,8 @@ Puppet::Reports.register_report(:wavefront) do
   def metrics_as_points
     ts = Time.now.to_i
 
-    metrics.each_with_object([]) do |(category, cat_values), aggr|
-      cat_values.each_value do |v|
+    metrics.each_with_object([]) do |(category, metric), aggr|
+      metric.values.each do |v|
         aggr.<< ({ path:  [PATH_BASE, category, v[0]].join('.'),
                    value: v[2],
                    ts:    ts })
