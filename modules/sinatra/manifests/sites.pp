@@ -17,14 +17,20 @@ class sinatra::sites(
       #revision => $version,
     }
 
+    file { "/var/caddy/vhosts/${site}":
+      ensure  => directory,
+      owner   => 'caddy',
+      mode    => '0700',
+    }
+
     file { "/tmp/${site}.xml":
       content => template('sinatra/service.xml.erb'),
     }
 
-    file { "/opt/local/etc/nginx/sinatra/${site}.conf":
-      content => template('sinatra/nginx_vhost.erb'),
-      require => File['/opt/local/etc/nginx/sinatra'],
-      notify  => Service['nginx'],
+    file { "/config/caddy/vhosts/${site}.conf":
+      content => template('sinatra/caddy_vhost.erb'),
+      require => File['/config/caddy/vhosts'],
+      notify  => Service['caddy'],
     }
 
     exec { "import_${site}_manifest":

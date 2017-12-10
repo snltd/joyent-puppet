@@ -1,6 +1,5 @@
 #
-# All sites will run as the user defined in `params.pp`, and will be
-# behind an nginx proxy.
+# All sites will run as the user defined in `params.pp`
 #
 class sinatra::install(
   $user = $sinatra::params::user,
@@ -12,18 +11,5 @@ class sinatra::install(
     shell    => '/bin/false',
     comment  => 'Sinatra pseudo-user',
     uid      => '4567'
-  }
-
-  package { 'nginx':
-    ensure => installed,
-  } ->
-
-  file { '/opt/local/etc/nginx/sinatra':
-    ensure  => directory,
-  }
-
-  file { ['/var/nginx', '/var/nginx/cache']:
-    ensure => directory,
-    owner  => 'www',
   }
 }
