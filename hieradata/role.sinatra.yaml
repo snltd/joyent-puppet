@@ -2,6 +2,7 @@
 
 classes:
   - sinatra
+  - caddy
   - diamond
 
 filebeat_svc: running
