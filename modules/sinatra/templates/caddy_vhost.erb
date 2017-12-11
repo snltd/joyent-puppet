@@ -3,9 +3,7 @@
   <% if @environment != 'production' %>
   tls off
   <% else %>
-  tls rob@sysdef.xyz {
-    ca https://acme-staging.api.letsencrypt.org/directory
-  }
+  tls rob@sysdef.xyz
   <% end %>
   log <%= File.join('/var/log/caddy', "#{@site}.access.log") %> {
     rotate_size 50
