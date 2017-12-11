@@ -18,10 +18,10 @@ sinatra:
         port: 8003
         repo: https://github.com/snltd/meetup-generator
         dir: /www/meetup-generator
-        server_name: "meetup.rdfisher.co.uk meetup.sysdef.xyz"
+        server_name: meetup.sysdef.xyz
 
     sysdef:
         port: 8004
         repo: https://github.com/snltd/sysdef.xyz
         dir: /www/sysdef.xyz
-        server_name: "*.sysdef.xyz sysdef.xyz"
+        server_name: sysdef.xyz
