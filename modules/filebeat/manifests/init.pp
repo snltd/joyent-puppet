@@ -2,7 +2,7 @@
 # are in ../files and the config file in ../templates.
 #
 class filebeat(
-  $filebeat_endpoints = hiera('filebeat_endpoints', []),
+  $wavefront_endpoint = hiera('wavefront_endpoint', 'wavefront'),
   $filebeat_svc       = hiera('filebeat_svc'),
 )
 {
