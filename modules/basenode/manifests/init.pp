@@ -7,7 +7,6 @@ class basenode(
   include basenode::filesystem
   include basenode::packages
   include basenode::puppet
-  include basenode::filebeat
   include basenode::services
   include basenode::ssh
   include basenode::syslog
