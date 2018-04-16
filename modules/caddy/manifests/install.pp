@@ -25,7 +25,7 @@ class caddy::install(
     mode   => '0750',
   }
 
-  file { ['/var/caddy', '/var/caddy/vhost']:
+  file { ['/var/caddy', '/var/caddy/vhosts']:
     ensure => directory,
     owner  => 'caddy',
     mode   => '0700',

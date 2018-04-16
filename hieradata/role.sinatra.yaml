@@ -3,6 +3,7 @@
 classes:
   - sinatra
   - caddy
-  - diamond
+  - filebeat
+  - telegraf
 
 filebeat_svc: running
