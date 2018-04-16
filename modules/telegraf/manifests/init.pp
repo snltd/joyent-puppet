@@ -9,7 +9,7 @@ class telegraf(
   file { '/opt/local/bin/telegraf':
     source => 'puppet:///modules/telegraf/telegraf',
     mode   => '0755',
-  }
+  } ->
 
   user { 'telegraf':
     uid     => 988,
@@ -26,11 +26,6 @@ class telegraf(
 
   file { '/config/telegraf/telegraf.conf':
     content => template('telegraf/telegraf.conf.erb'),
-  }
-
-  file { '/opt/local/lib/svc/method/telegraf':
-    source => 'puppet:///modules/telegraf/telegraf.method',
-    mode   => '0755'
   } ->
 
   file { '/opt/local/lib/svc/manifest/telegraf.xml':
