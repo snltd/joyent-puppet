@@ -4,6 +4,7 @@
 class telegraf(
   $telegraf_endpoints = hiera('telegraf_endpoints', []),
   $telegraf_svc       = hiera('telegraf_svc', 'running'),
+  $wavefront_endpoint = hiera('wavefront_endpoint', 'wavefront'),
 )
 {
   file { '/opt/local/bin/telegraf':
@@ -27,11 +28,6 @@ class telegraf(
   file { '/config/telegraf/telegraf.conf':
     content => template('telegraf/telegraf.conf.erb'),
   }
-
-  file { '/opt/local/lib/svc/method/telegraf':
-    source => 'puppet:///modules/telegraf/telegraf.method',
-    mode   => '0755'
-  } ->
 
   file { '/opt/local/lib/svc/manifest/telegraf.xml':
     source => 'puppet:///modules/telegraf/telegraf.xml',
