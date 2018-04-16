@@ -1,7 +1,0 @@
-#!/bin/ksh
-
-/opt/local/bin/telegraf --config /config/telegraf/telegraf.conf &
-
-sleep 3
-
-pgrep telegraf
