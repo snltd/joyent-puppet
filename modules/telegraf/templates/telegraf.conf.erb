@@ -1,0 +1,54 @@
+[global_tags]
+  dc = "<%= @network_net0 == "192.168.1.0" ? "lab" : "eu-ams-1" %>"
+  env = "<%= @environment %>"
+
+[agent]
+  interval = "20s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  debug = false
+  quiet = false
+  logfile = "/var/log/telegraf/telegraf.log"
+  hostname = ""
+  omit_hostname = false
+
+[[outputs.wavefront]]
+  host = "wavefront"
+  port = 2878
+
+[[inputs.solaris_smf]]
+  SvcStates = ["offline", "uninitialized", "degraded", "maintenance"]
+
+[[inputs.solaris_io]]
+  Fields = ["reads", "nread", "writes", "nwritten"]
+  OmitDisks = ["zones"]
+
+[[inputs.solaris_network]]
+  Fields = ["obytes64", "rbytes64", "collisions", "ierrors", "oerrors"]
+
+[[inputs.solaris_memory]]
+  VmInfoFields = ["freemem", "swap_resv", "swap_alloc", "swap_avail", "swap_free"]
+  SwapFields = ["allocated", "used", "reserved", "available"]
+  PerCpuVm = false
+
+[[inputs.smartos_zone]]
+  Names = ["swapresv", "lockedmem", "nprocs", "cpucaps", "physicalmem"]
+  CpuCapsFields = ["above_base_sec", "above_sec", "baseline",
+     "below_sec", "burst_limit_sec", "bursting_sec", "effective",
+     "maxusage", "nwait"]
+  MemoryCapFields = ["anon_alloc_fail", "anonpgin", "crtime", "execpgin",
+    "fspgin", "n_pf_throttle", "n_pf_throttle_usec", "nover",
+    "pagedout", "pgpgin", "physcap", "rss", "swap", "swapcap"]
+
+[[inputs.solaris_proc]]
+  Fields = ["rssize", "size", "sysc", "utime", "stime"]
+  TopN = 10
+  Tags = ["zone", "svc", "pid", "name"]
+
+[[inputs.solaris_smf]]
+  SvcStates = ["uninitialized", "degraded", "maintenance"]
