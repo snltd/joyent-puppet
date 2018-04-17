@@ -2,6 +2,7 @@
 
 classes:
   - basenode
+  - telegraf
 
 basenode::packages::absent:
   - postfix
