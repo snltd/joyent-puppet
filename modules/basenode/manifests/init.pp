@@ -9,6 +9,5 @@ class basenode(
   include basenode::puppet
   include basenode::services
   include basenode::ssh
-  include basenode::syslog
   include basenode::users
 }

@@ -2,11 +2,12 @@
 # set up everything wavefront_proxy needs
 #
 class wavefront_proxy::install(
-  $manta = 'https://us-east.manta.joyent.com/snltd/public',
-  $tmp   = '/var/tmp',
-  $pkg   = 'wavefront-proxy-4.12-1.tgz',
-)
-{
+  $tmp     = '/var/tmp',
+  $wf_pkg  = 'wavefront-proxy-4.26-1.tgz',
+  $jre_ver = '162',
+  $jre_src = "server-jre-8u${jre_ver}-solaris-x64.tar.xz",
+  $manta   = hiera('manta_uri'),
+) {
   user { 'wavefront':
     ensure     => present,
     home       => '/opt/local/wavefront',
@@ -30,29 +31,28 @@ class wavefront_proxy::install(
 
   exec { 'fetch_proxy_pkg':
     command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
-                ${manta}/${pkg}",
-    unless  => "test -f ${tmp}/${pkg}}",
+                ${manta}/${wf_pkg}",
+    unless  => "test -f ${tmp}/${wf_pkg}",
   } ->
 
   exec { 'install_proxy_pkg':
-    command => "yes | /opt/local/sbin/pkg_add ${tmp}/${pkg}",
+    command => "yes | /opt/local/sbin/pkg_add ${tmp}/${wf_pkg}",
     unless  => 'pkgin list | grep -q proxy',
   }
 
   exec { 'fetch_jre':
     command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
-                ${manta}/jre-8u121-solaris-x64.tar.xz",
-    unless  => "test -f ${tmp}/server-jre-8u121-solaris-x64.tar.xz",
+                ${manta}/${jre_src}",
+    unless  => "test -f ${tmp}/${jre_src}",
   } ->
 
   exec { 'install_jre':
-    command => "/usr/bin/gtar -C /opt/local \
-                -Jxf ${tmp}/jre-8u121-solaris-x64.tar.xz",
+    command => "/usr/bin/gtar -C /opt/local -Jxf ${tmp}/${jre_src}",
     unless  => 'test -f /opt/local/java/bin/java',
   } ->
 
   file { '/opt/local/java':
     ensure => link,
-    target => '/opt/local/jre1.8.0_121',
+    target => "/opt/local/jdk1.8.0_${jre_ver}",
   }
 }
