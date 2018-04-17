@@ -8,3 +8,5 @@ basenode::dns_client::dns_servers:
 
 wavefront_endpoint: tornado-wf.localnet
 manta_uri: http://httpserv.localnet/manta
+dc: home
+platform: SmartOS

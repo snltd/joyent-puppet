@@ -11,3 +11,5 @@ wf_report_tags:
   - git_rev
   - run_by
   - puppet_version
+
+wavefront_server: metrics.wavefront.com

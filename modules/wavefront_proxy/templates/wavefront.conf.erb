@@ -1,4 +1,4 @@
-server=https://metrics.wavefront.com/api/
+server=https://<%= @wavefront_server %>/api/
 hostname=<%= @hostname %>
 token=<%= @wavefront_token %>
 
@@ -15,7 +15,7 @@ idFile=/var/wavefront/.wavefront_id
 buffer=/var//wavefront/buffer
 retryThreads=4
 
-agentMetricsPointTags=dc=eu-ams-1,env=production
+agentMetricsPointTags=dc=<%= @dc %>,env=<%= @environment %>,product=websites,platform=<%= @platform %>
 
 #whitelistRegex=^(production|stage).*
 #blacklistRegex=^(qa|development|test).*

@@ -2,7 +2,10 @@
 # install service and config file
 #
 class wavefront_proxy::configure(
-    $wavefront_token = $wf_token,
+  $wavefront_token  = $wf_token,
+  $wavefront_server = hiera('wavefront_server', 'metrics.wavefront.com'),
+  $dc               = hiera('dc', 'undefined'),
+  $platform         = hiera('platform', 'undefined'),
 )
 {
   exec { 'install_wfp_manifest':
