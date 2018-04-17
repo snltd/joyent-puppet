@@ -73,17 +73,19 @@ end
 # Solaris or SmartOS zone
 #
 # @raise [String] 'UnknownOS' if it doesn't recognize the OS
-# @return [Integer] the PID of the init process, or equivalent
+# @return [Array[Integer]] the PID of the init process, or equivalent
 #
 def init_pid
   if RbConfig::CONFIG['arch'] =~ /solaris/
-    if `zoneadm list -c | grep ^global$`.empty?
-      `/bin/pgrep -fx zsched`.to_i
+    init_pid = `/bin/pgrep -fx /sbin/init`.to_i
+
+    if `/usr/sbin/zoneadm list -p`.start_with?('0:')
+      [init_pid]
     else
-      `/bin/pgrep -fx /sbin/init`.to_i
+      [init_pid, `/bin/pgrep -fx zsched`.to_i]
     end
   else
-    1
+    [1]
   end
 end
 
@@ -107,7 +109,8 @@ INIT_PID = init_pid
 def launched_from(pid, depth = 0)
   raise 'UnknownAncestor' if depth > 8
   cmd, ppid = ps_cmd(pid)
-  return cmd if ppid.to_i == INIT_PID
+  Puppet.info "Cmd --> #{cmd} :: ppid --> #{ppid} == #{INIT_PID}"
+  return cmd if INIT_PID.include?(ppid.to_i)
   launched_from(ppid, depth + 1)
 end
 
@@ -119,8 +122,10 @@ end
 def run_by
   prog = launched_from(Process.pid)
 
+  Puppet.info "launcher ---> #{prog}"
+
   case prog
-  when %r{/sshd$}
+  when %r{/sshd$}, '/usr/bin/login'
     'interactive'
   when 'sshd:', '/usr/bin/python', '/lib/svc/bin/svc.startd'
     'bootstrapper'
