@@ -8,4 +8,4 @@ basenode::dns_client::dns_servers:
 wavefront_endpoint: wavefront
 diamond_prefix: /opt/local/diamond
 metric_suffix: prod.www.host
-manta_uri: 'https://us-east.manta.joyent.com/snltd/public',
+manta_uri: https://us-east.manta.joyent.com/snltd/public

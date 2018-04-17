@@ -7,7 +7,7 @@ class telegraf(
   $tmp                = '/var/tmp',
   $file               = 'telegraf',
   $telegraf_svc       = hiera('telegraf_svc', 'running'),
-) {
+)
 {
   file { ['/config/telegraf', '/var/log/telegraf']:
     ensure => directory,
