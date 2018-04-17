@@ -24,4 +24,4 @@ sinatra:
         port: 8004
         repo: https://github.com/snltd/sysdef.xyz
         dir: /www/sysdef.xyz
-        server_name: "*.sysdef.localnet sysdef.localnet"
+        server_name: sysdef.localnet

@@ -6,9 +6,5 @@ basenode::dns_client::dns_servers:
   - 8.8.8.8
   - 8.8.4.4
 
-wavefront_endpoint: wavefront
-diamond_prefix: /opt/local/diamond
-metric_suffix: dev.www.host
-filebeat_endpoints:
-  - graylog
-  - wavefront
+wavefront_endpoint: tornado-wf.localnet
+manta_uri: http://httpserv.localnet/manta

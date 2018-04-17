@@ -8,9 +8,7 @@
       <service_fmri value='svc:/milestone/multi-user-server'/>
     </dependency>
     <method_context>
-      <method_credential group='daemon'
-      privileges='basic,!proc_session,!proc_info,!file_link_any,'
-      user='logs'/>
+      <method_credential group='logs' user='logs'/>
     </method_context>
     <exec_method name='start' type='method'
     exec='/opt/local/bin/filebeat -c /config/filebeat/filebeat.yaml'

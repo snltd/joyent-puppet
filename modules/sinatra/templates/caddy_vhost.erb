@@ -1,14 +1,24 @@
-<%= @params['server_name'] %> {
+<%- protocol = @environment == 'production' ? 'https' : 'http' %>
+<%= protocol %>://<%= @params['server_name'] %> {
   root /var/caddy/vhost/<%= @site %>
-  <% if @environment != 'production' %>
-  tls off
-  <% else %>
+  <% if @environment == 'production' %>
   tls rob@sysdef.xyz
+  <% else %>
+  tls off
   <% end %>
-  log <%= File.join('/var/log/caddy', "#{@site}.access.log") %> {
+
+  log / <%= File.join('/var/log/caddy', "#{@site}.access.log") %> "{hostonly} {remote} [{when}] \"{method} {path} {proto}\" {status} {size} {latency_ms}" {
     rotate_size 50
     rotate_compress
     rotate_keep 5
+    except /robots.txt
+    except /_health
+    except /i/*
+    except /favicon.ico
+    except /css/*
+  }
+
+  prometheus {
   }
 
   proxy / http://localhost:<%= @params['port'] %> {

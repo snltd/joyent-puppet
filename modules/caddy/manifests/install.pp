@@ -2,6 +2,9 @@
 # set up everything caddy needs
 #
 class caddy::install(
+  $tmp   = '/var/tmp',
+  $file  = 'caddy',
+  $manta = hiera('manta_uri'),
 )
 {
   user { 'caddy':
@@ -31,8 +34,14 @@ class caddy::install(
     mode   => '0700',
   }
 
+  exec { 'fetch_caddy':
+    command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
+                ${manta}/${file}",
+    unless  => "test -f ${tmp}/${file}}",
+  } ->
+
   file { '/opt/local/bin/caddy':
-    source => 'puppet:///modules/caddy/caddy',
+    source => "${tmp}/${file}",
     mode   => '0755',
   }
 

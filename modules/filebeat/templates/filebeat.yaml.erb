@@ -3,16 +3,14 @@
 filebeat.prospectors:
 - input_type: log
   paths:
-    - /var/log/nginx/*.log
+    - /var/log/caddy/*.log
   tail_files: true
   registry_file: /var/filebeat/registry
   close_after: 48h
 
 output.logstash:
   hosts:
-<%- @filebeat_endpoints.each do |e| %>
-    - <%= e %>:5044
-<% end %>
+    - <%= @wavefront_endpoint %>:5044
 
 logging:
   level: info

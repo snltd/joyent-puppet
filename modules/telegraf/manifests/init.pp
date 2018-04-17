@@ -2,12 +2,31 @@
 # are in ../files and the config file in ../templates.
 #
 class telegraf(
-  $telegraf_endpoints = hiera('telegraf_endpoints', []),
+  $wavefront_endpoint = hiera('wavefront_endpoint', 'wavefront'),
+  $manta              = hiera('manta_uri'),
+  $tmp                = '/var/tmp',
+  $file               = 'telegraf',
   $telegraf_svc       = hiera('telegraf_svc', 'running'),
-)
+) {
 {
+  file { ['/config/telegraf', '/var/log/telegraf']:
+    ensure => directory,
+    owner  => 'telegraf',
+  }
+
+  file { '/config/telegraf/telegraf.conf':
+    content => template('telegraf/telegraf.conf.erb'),
+    notify  => Service['telegraf'],
+  }
+
+  exec { 'fetch_telegraf':
+    command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
+                ${manta}/${file}",
+    unless  => "test -f ${tmp}/${file}}",
+  } ->
+
   file { '/opt/local/bin/telegraf':
-    source => 'puppet:///modules/telegraf/telegraf',
+    source => "${tmp}/${file}",
     mode   => '0755',
   } ->
 
@@ -18,15 +37,6 @@ class telegraf(
     home    => '/var/log/telegraf',
     gid     => 'daemon',
   }
-
-  file { ['/config/telegraf', '/var/log/telegraf']:
-    ensure => directory,
-    owner  => 'telegraf',
-  }
-
-  file { '/config/telegraf/telegraf.conf':
-    content => template('telegraf/telegraf.conf.erb'),
-  } ->
 
   file { '/opt/local/lib/svc/manifest/telegraf.xml':
     source => 'puppet:///modules/telegraf/telegraf.xml',
