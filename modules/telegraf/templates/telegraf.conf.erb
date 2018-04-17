@@ -1,6 +1,7 @@
 [global_tags]
-  dc = "<%= @network_net0 == "192.168.1.0" ? "lab" : "eu-ams-1" %>"
   env = "<%= @environment %>"
+  role = "<% = @role %>"
+  colour = "<% = @colour || 'none' %>"
 
 [agent]
   interval = "20s"
