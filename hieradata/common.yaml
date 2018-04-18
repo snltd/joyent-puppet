@@ -13,5 +13,7 @@ wf_report_tags:
   - run_by
   - puppet_version
   - environment
+  - role
+  - product
 
 wavefront_server: metrics.wavefront.com

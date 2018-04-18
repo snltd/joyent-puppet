@@ -3,7 +3,7 @@
 # sends every metric given as part of a standard Puppet report, with
 # a configurable number of point tags.
 #
-# You can add any or all of the following tags to every point:
+# You can add any or all of the following "special" tags to every point:
 #
 # run_by:         What triggered the run. Could be 'cron', 'bootstrap', or
 #                 'interactive'.
@@ -16,6 +16,9 @@
 # environment:    the Puppet environment which was used
 # run_no:         how many times Puppet (specifically the reporter)
 #                 has run on this host
+#
+# You can also include any fact as a tag by adding it to
+# wf_report_tags.
 #
 # The following Hiera variables can be used to configure the
 # reporter:
@@ -109,7 +112,6 @@ INIT_PID = init_pid
 def launched_from(pid, depth = 0)
   raise 'UnknownAncestor' if depth > 8
   cmd, ppid = ps_cmd(pid)
-  Puppet.info "Cmd --> #{cmd} :: ppid --> #{ppid} == #{INIT_PID}"
   return cmd if INIT_PID.include?(ppid.to_i)
   launched_from(ppid, depth + 1)
 end
@@ -121,8 +123,6 @@ end
 #
 def run_by
   prog = launched_from(Process.pid)
-
-  Puppet.info "launcher ---> #{prog}"
 
   case prog
   when %r{/sshd$}, '/usr/bin/login'
@@ -148,7 +148,19 @@ Puppet::Reports.register_report(:wavefront) do
   # @return [Hash] point tags which will be applied to each metric
   #
   def setup_tags
-    TAGS.each_with_object({}) { |t, ret| ret[t.to_sym] = send(t) }
+    TAGS.each_with_object({}) do |t, ret|
+      val = tag_value(t.to_sym)
+      ret[t.to_sym] = val if val && !val.empty?
+    end
+  end
+
+  def tag_value(tag)
+    if respond_to?(tag, true)
+      send(tag)
+    else
+      factval = Facter[tag]
+      factval ? factval.value : nil
+    end
   end
 
   # @return [Integer] the run number, from the scoreboard file
