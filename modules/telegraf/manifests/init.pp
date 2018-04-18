@@ -22,7 +22,7 @@ class telegraf(
   exec { 'fetch_telegraf':
     command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
                 ${manta}/${file}",
-    unless  => "test -f ${tmp}/${file}}",
+    unless  => "test -f ${tmp}/${file}",
   } ->
 
   file { '/opt/local/bin/telegraf':

@@ -12,7 +12,7 @@ class filebeat(
   exec { 'fetch_filebeat':
     command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
                 ${manta}/${file}",
-    unless  => "test -f ${tmp}/${file}}",
+    unless  => "test -f ${tmp}/${file}",
   } ->
 
   file { '/opt/local/bin/filebeat':
