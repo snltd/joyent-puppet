@@ -3,18 +3,18 @@
 # them via SMF.
 #
 class sinatra::sites(
-  $rackup = $sinatra::params::rackup,
-  $user = $sinatra::params::user,
+  $user  = $sinatra::params::user,
   $sites = hiera_hash('sinatra'),
 ) inherits sinatra::params
 {
   $sites.each |String $site, $params| {
+    $svc = "svc:/sysdef/sinatra/${site}:default"
 
-    vcsrepo { $params['dir']:
-      ensure   => present,
-      provider => git,
-      source  =>  $params['repo'],
-      #revision => $version,
+    package { $site:
+      ensure   => latest,
+      provider => 'gem',
+      source   => $params['repo'],
+      notify   => Service[$svc],
     }
 
     file { "/var/caddy/vhosts/${site}":
@@ -37,6 +37,10 @@ class sinatra::sites(
       command => "/usr/sbin/svccfg import /tmp/${site}.xml",
       require => File["/tmp/${site}.xml"],
       unless  => "/usr/bin/svcs ${site}",
+    } ->
+
+    service { $svc:
+      ensure => running,
     }
   }
 }
