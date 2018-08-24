@@ -1,27 +1,27 @@
 ---
 
 sinatra:
-    rdfisher:
-        port: 8001
-        repo: https://github.com/snltd/rdfisher
-        dir: /www/rdfisher
-        server_name: rdfisher.localnet
-        default: true
+  #rdfisher:
+  #port: 8001
+  #repo: https://github.com/snltd/rdfisher
+  #dir: /www/rdfisher
+  #server_name: rdfisher.localnet
+  #default: true
 
-    cassingle:
-        port: 8002
-        repo: https://github.com/snltd/cassingle
-        dir: /www/cassingle
-        server_name: cassingle.localnet
+  #cassingle:
+  #port: 8002
+  #repo: https://github.com/snltd/cassingle
+  #dir: /www/cassingle
+  #server_name: cassingle.localnet
 
-    meetup-generator:
-        port: 8003
-        repo: https://github.com/snltd/meetup-generator
-        dir: /www/meetup-generator
-        server_name: meetup.localnet
+  meetup-generator:
+    port:        8003
+    repo:        https://rubygems.org/
+    dir:         /www/meetup-generator
+    server_name: meetup.localnet
 
-    sysdef:
-        port: 8004
-        repo: https://github.com/snltd/sysdef.xyz
-        dir: /www/sysdef.xyz
-        server_name: sysdef.localnet
+  #sysdef:
+  #port: 8004
+  #repo: https://github.com/snltd/sysdef.xyz
+  #dir: /www/sysdef.xyz
+  #server_name: sysdef.localnet
