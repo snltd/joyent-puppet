@@ -4,7 +4,7 @@
 #
 class sinatra::sites(
   $user  = $sinatra::params::user,
-  $sites = hiera_hash('sinatra'),
+  $sites = lookup('sinatra'),
 ) inherits sinatra::params
 {
   $sites.each |String $site, $params| {
