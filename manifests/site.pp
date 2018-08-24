@@ -1,4 +1,5 @@
-Exec { path => '/usr/bin:/usr/sbin:/opt/local/bin:/opt/local/sbin' }
+Exec { path => ['/usr/bin/', '/usr/sbin/', '/opt/local/bin/',
+                '/opt/local/sbin/', '/opt/local/ruby/bin/'] }
 
 File {
   owner => 'root',
