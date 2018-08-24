@@ -5,7 +5,7 @@
 <service_bundle type='manifest' name='<%= @base_svc %>:sinatra:<%= @site %>'>
 
 <service
-  name='application/sinatra/<%= @site %>'
+  name='sysdef/sinatra/<%= @site %>'
   type='service'
   version='1'>
 
@@ -27,7 +27,7 @@
     name='start'
     type='method'
     timeout_seconds='0'
-    exec='<%= @rackup %> -D -p <%= @params['port'] %> <%= File.join(@params['dir'], 'config.ru')%>'>
+    exec='<%= @rackup %> -D -p <%= @params['port'] %> $(/opt/local/ruby/bin/locate_<%= @site %>)'>
     <method_context>
       <method_credential
         user='<%= @user %>'
