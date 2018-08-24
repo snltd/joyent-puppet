@@ -4,8 +4,16 @@
 #
 class basenode::packages(
   $installed = undef,
-  $absent = undef,
+  $absent    = undef,
 ) {
+
+  file { '/opt/local/ruby/etc':
+    ensure => directory,
+  }
+
+  file { '/opt/local/ruby/etc/gemrc':
+    source => 'puppet:///modules/basenode/gemrc',
+  }
 
   if $installed {
     package { $installed:
@@ -18,5 +26,4 @@ class basenode::packages(
       ensure => absent,
     }
   }
-
 }
