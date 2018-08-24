@@ -48,7 +48,7 @@ class telegraf(
     unless  => '/bin/svcs telegraf',
   } ->
 
-  service { 'telegraf':
+  service { 'svc:/influx/telegraf:default':
     ensure => $telegraf_svc,
   }
 }

@@ -2,9 +2,9 @@
 # are in ../files and the config file in ../templates.
 #
 class filebeat(
-  $wavefront_endpoint = hiera('wavefront_endpoint', 'wavefront'),
-  $filebeat_svc       = hiera('filebeat_svc'),
-  $manta              = hiera('manta_uri'),
+  $wavefront_endpoint = lookup('wavefront_endpoint'),
+  $filebeat_svc       = lookup('filebeat_svc'),
+  $manta              = lookup('manta_uri'),
   $tmp                = '/var/tmp',
   $file               = 'filebeat',
 )
@@ -56,7 +56,7 @@ class filebeat(
     unless  => '/bin/svcs filebeat',
   } ->
 
-  service { 'filebeat':
+  service { 'svc:/elastic/filebeat:default':
     ensure => $filebeat_svc,
   }
 }
