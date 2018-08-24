@@ -1,17 +1,15 @@
 ---
-:backends:
-  - yaml
 
-:hierarchy:
-  - "%{::environment}/%{::hostname}"
-  - "%{::environment}/role.%{::role}"
-  - "%{::environment}/mod.%{module_name}"
-  - "%{::environment}/common"
-  - "%{::hostname}"
-  - "role.%{::role}"
-  - "mod.%{module_name}"
-  - common
+version: 5
 
+defaults:
+  datadir: hieradata
+  data_hash: yaml_data
 
-:yaml:
-  :datadir: hieradata
+hierarchy:
+  - name: "standard hierarchy"
+    paths:
+      - "%{facts.environment}/role.%{facts.role}.yaml"
+      - "%{facts.environment}/common.yaml"
+      - "role.%{facts.role}.yaml"
+      - "common.yaml"
