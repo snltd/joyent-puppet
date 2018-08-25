@@ -1,11 +1,6 @@
-#
 # set up Caddy and everything it needs
 #
-class caddy::configure(
-  $tmp   = '/var/tmp',
-  $file  = 'caddy',
-  $manta = hiera('manta_uri'),
-)
+class caddy::configure()
 {
   user { 'caddy':
     ensure     => present,
@@ -38,19 +33,9 @@ class caddy::configure(
     mode   => '0700',
   }
 
-  exec { 'fetch_caddy':
-    command => "/usr/bin/wget --no-check-certificate -P ${tmp} \
-                ${manta}/${file}",
-    unless  => "test -f ${tmp}/${file}",
-  } ->
-
-  file { '/opt/local/bin/caddy':
-    source => "${tmp}/${file}",
-    mode   => '0755',
-  }
-
-  file { '/opt/local/lib/svc/manifest/caddy.xml':
-    source => 'puppet:///modules/caddy/caddy.xml',
+  package { 'caddy':
+    ensure  => latest,
+    notify  => Service['caddy'],
   } ->
 
   exec { 'caddy_svc':
@@ -59,7 +44,7 @@ class caddy::configure(
     unless  => '/bin/svcs caddy',
   } ->
 
-  service { 'svc:/mholt/caddy:default':
+  service { 'caddy':
     ensure => running,
   }
 }
