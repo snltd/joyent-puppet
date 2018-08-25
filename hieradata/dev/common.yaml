@@ -1,12 +1,6 @@
 ---
 
-basenode::dns_client::dns_domain: localnet
-basenode::dns_client::dns_servers:
-  - 192.168.1.26
-  - 8.8.8.8
-  - 8.8.4.4
+basenode::repo::pkgsrc_manta: "http://pkgsrc.localnet"
 
-wavefront_endpoint: tornado-wf.localnet
-manta_uri: http://manta.localnet
-dc: home
-platform: SmartOS
+# dc: home
+# platform: SmartOS

@@ -7,6 +7,9 @@ classes:
 basenode::packages::absent:
   - postfix
 
+telegraf::endpoint: wavefront
+filebeat::endpoint: wavefront
+
 wf_report_tags:
   - status
   - git_rev
@@ -15,5 +18,3 @@ wf_report_tags:
   - environment
   - role
   - product
-
-wavefront_server: metrics.wavefront.com
