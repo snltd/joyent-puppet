@@ -4,5 +4,3 @@ classes:
   - sinatra
   - caddy
   - filebeat
-
-filebeat_svc: running

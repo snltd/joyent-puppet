@@ -2,5 +2,3 @@
 
 classes:
   - wavefront_proxy
-
-filebeat_svc: stopped
