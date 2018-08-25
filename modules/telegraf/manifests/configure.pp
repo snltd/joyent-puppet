@@ -3,6 +3,7 @@
 #
 class telegraf::configure(
   $wavefront_endpoint = $telegraf::endpoint,
+  $svc                = 'svc:/influx/telegraf:default',
 )
 {
   user { 'telegraf':
@@ -20,16 +21,12 @@ class telegraf::configure(
 
   file { '/config/telegraf/telegraf.conf':
     content => template('telegraf/telegraf.conf.erb'),
-    notify  => Service['svc:/influx/telegraf:default'],
+    notify  => Service[$svc],
   }
 
   package { 'telegraf':
-    require => File_line['manta_repo'],
     ensure  => latest,
-  }
-
-  file { '/opt/local/lib/svc/manifest/telegraf.xml':
-    source => 'puppet:///modules/telegraf/telegraf.xml',
+    notify  => Service[$svc],
   } ->
 
   exec { 'telegraf_svc':
@@ -38,7 +35,7 @@ class telegraf::configure(
     unless  => '/bin/svcs telegraf',
   } ->
 
-  service { 'svc:/influx/telegraf:default':
+  service { $svc:
     ensure => running,
   }
 }
