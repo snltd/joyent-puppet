@@ -7,8 +7,7 @@ classes:
 basenode::packages::absent:
   - postfix
 
-telegraf::endpoint: wavefront
-filebeat::endpoint: wavefront
+wavefront_endpoint: wavefront
 
 wf_report_tags:
   - status

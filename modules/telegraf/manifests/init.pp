@@ -1,8 +1,6 @@
 #
 # install and configure my home-made Telegraf
 #
-class telegraf(
-  $endpoint = 'undefined',
-){
+class telegraf(){
   include telegraf::configure
 }

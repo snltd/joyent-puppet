@@ -2,7 +2,7 @@
 # are in ../files and the config file in ../templates.
 #
 class telegraf::configure(
-  $wavefront_endpoint = $telegraf::endpoint,
+  $wavefront_endpoint = lookup(wavefront_endpoint),
   $svc                = 'svc:/influx/telegraf:default',
 )
 {

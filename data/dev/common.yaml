@@ -2,5 +2,4 @@
 
 basenode::repo::pkgsrc_manta: "http://pkgsrc.localnet"
 
-# dc: home
-# platform: SmartOS
+wavefront_endpoint: tornado-wf

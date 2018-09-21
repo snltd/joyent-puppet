@@ -13,5 +13,5 @@ export FACTERLIB="${BASE}/facts"
     --modulepath=modules:vendor/modules \
 	--environmentpath=${BASE}/environments \
     --hiera_config=${BASE}/hiera.yaml \
-    --verbose \
-    manifests/site.pp
+	--verbose \
+    manifests/site.pp 2>&1 | tee /var/log/last_puppet_run.log

@@ -4,10 +4,10 @@
 #
 class sinatra::sites(
   $user  = $sinatra::params::user,
-  $sites = lookup('sinatra'),
+  $sites = lookup(sinatra::sites, Hash, deep)
 ) inherits sinatra::params
 {
-  $sites.each |String $site, $params| {
+  $sites.each |String $site, Hash $params| {
     $svc = "svc:/sysdef/sinatra/${site}:default"
 
     package { $site:
@@ -23,15 +23,15 @@ class sinatra::sites(
       mode    => '0700',
     }
 
-    file { "/tmp/${site}.xml":
-      content => template('sinatra/service.xml.erb'),
-    }
-
     file { "/config/caddy/vhosts/${site}.conf":
       content => template('sinatra/caddy_vhost.erb'),
       require => File['/config/caddy/vhosts'],
       notify  => Service['caddy'],
     }
+
+    file { "/tmp/${site}.xml":
+      content => template('sinatra/service.xml.erb'),
+    } ->
 
     exec { "import_${site}_manifest":
       command => "/usr/sbin/svccfg import /tmp/${site}.xml",

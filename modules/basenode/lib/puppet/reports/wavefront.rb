@@ -195,6 +195,8 @@ Puppet::Reports.register_report(:wavefront) do
   # Send the metrics to Wavefront, and update the scoreboard file.
   #
   def process
+    Puppet.info "Sending Wavefront report to #{ENDPOINT}:2878"
+
     Wavefront::Write.new({ proxy: ENDPOINT, port: 2878 },
                          tags: setup_tags).write(metrics_as_points)
     update_run_number

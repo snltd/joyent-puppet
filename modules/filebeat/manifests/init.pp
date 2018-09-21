@@ -1,9 +1,6 @@
 #
 # install and configure filebeat
 #
-class filebeat(
-  $endpoint = 'undefined',
-){
-
+class filebeat(){
   include filebeat::configure
 }

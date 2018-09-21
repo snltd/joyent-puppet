@@ -2,7 +2,7 @@
 # are in ../files and the config file in ../templates.
 #
 class filebeat::configure(
-  $wavefront_endpoint = $filebeat::endpoint,
+  $wavefront_endpoint = lookup(wavefront_endpoint),
   $svc                = 'svc:/elastic/filebeat:default',
 )
 {

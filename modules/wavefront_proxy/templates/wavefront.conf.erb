@@ -1,6 +1,6 @@
-server=https://<%= @wavefront_server %>/api/
+server=https://<%= @api_endpoint %>/api/
 hostname=<%= @hostname %>
-token=<%= @wavefront_token %>
+token=<%= @token %>
 
 pushListenerPorts=2878
 pushFlushMaxPoints=40000
@@ -15,7 +15,7 @@ idFile=/var/wavefront/.wavefront_id
 buffer=/var//wavefront/buffer
 retryThreads=4
 
-agentMetricsPointTags=dc=<%= @dc %>,env=<%= @environment %>,product=websites,platform=<%= @platform %>
+agentMetricsPointTags=dc=<%= @dc %>,env=<%= @environment %>,product=websites
 
 #whitelistRegex=^(production|stage).*
 #blacklistRegex=^(qa|development|test).*

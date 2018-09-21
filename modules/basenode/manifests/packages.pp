@@ -3,8 +3,8 @@
 # in hiera.
 #
 class basenode::packages(
-  $installed = undef,
-  $absent    = undef,
+  $installed = [],
+  $absent    = [],
 )
 {
   if $installed {
