@@ -1,10 +1,19 @@
 #!/usr/bin/env ruby
-#
+
 require 'yaml'
 
-env = `mdata-get environment`.strip || 'unknown'
+require 'facter'
+env  = `mdata-get environment`.strip || 'unknown'
+role = `mdata-get role`.strip || 'unknown'
 
-p = { environment: env }
+out = { environment:  env,
+        classes:      %w[basenode telegraf] }
 
-puts p.to_yaml.to_s
+if role == 'sinatra'
+  out[:classes] += %w[sinatra caddy filebeat]
+elsif
+  role == 'wavefront-proxy'
+  out[:classes].<< 'wavefront_proxy'
+end
 
+puts out.to_yaml

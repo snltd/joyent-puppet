@@ -1,0 +1,5 @@
+---
+
+basenode::repo::pkgsrc_manta: "http://pkgsrc.localnet"
+
+wavefront_endpoint: tornado-wf

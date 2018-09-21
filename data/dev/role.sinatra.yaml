@@ -1,0 +1,14 @@
+---
+
+sinatra::sites:
+  rdfisher:
+    server_name:  rdfisher.localnet
+
+  cassingle:
+    server_name:  cassingle.localnet
+
+  'meetup-generator':
+    server_name:  meetup.localnet
+
+  sysdef:
+    server_name:  sysdef.localnet

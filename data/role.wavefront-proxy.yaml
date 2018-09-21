@@ -1,0 +1,8 @@
+---
+
+classes:
+  - wavefront_proxy
+
+wavefront_proxy::api_endpoint: metrics.wavefront.com
+wavefront_proxy::tags:
+  product: websites

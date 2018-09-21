@@ -3,15 +3,10 @@
   - yaml
 
 :hierarchy:
-  - "%{::environment}/%{::hostname}"
   - "%{::environment}/role.%{::role}"
-  - "%{::environment}/mod.%{module_name}"
   - "%{::environment}/common"
-  - "%{::hostname}"
   - "role.%{::role}"
-  - "mod.%{module_name}"
-  - common
-
+  - "common"
 
 :yaml:
-  :datadir: hieradata
+  :datadir: data

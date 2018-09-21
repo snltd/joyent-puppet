@@ -1,0 +1,19 @@
+---
+
+classes:
+  - basenode
+  - telegraf
+
+basenode::packages::absent:
+  - postfix
+
+wavefront_endpoint: wavefront
+
+wf_report_tags:
+  - status
+  - git_rev
+  - run_by
+  - puppet_version
+  - environment
+  - role
+  - product

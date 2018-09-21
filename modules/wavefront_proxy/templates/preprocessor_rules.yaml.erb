@@ -1,5 +1,7 @@
 '2878':
-  - rule:   env_tags
+<% @wf_tags.each do |k, v| %>
+  - rule:   <%= k %>_tag
     action: addTag
-    tag:    env
-    value:  <%= @environment %>
+    tag:    <%= k %>
+    value:  <%= v %>
+<% end %>

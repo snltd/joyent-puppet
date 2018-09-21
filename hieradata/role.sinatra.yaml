@@ -1,9 +1,0 @@
----
-
-classes:
-  - sinatra
-  - caddy
-  - filebeat
-  - telegraf
-
-filebeat_svc: running
