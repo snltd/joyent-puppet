@@ -7,17 +7,22 @@
     <dependency name='multi-user-server' grouping='require_all' restart_on='none' type='service'>
       <service_fmri value='svc:/milestone/multi-user-server'/>
     </dependency>
-    <method_context>
-      <method_credential group='daemon'
-      privileges='basic,!proc_session,!proc_info,!file_link_any,net_privaddr'
-      user='caddy'/>
-      <method_environment>
-        <envvar name='NS1_API_KEY' value='<%= @ns1_api_key %>'/>
-      </method_environment>
-    </method_context>
-    <exec_method name='start' type='method'
-      exec='/opt/local/bin/caddy -conf /config/caddy/Caddyfile'
-      timeout_seconds='0'/>
+
+    <exec_method name='start'
+                 type='method'
+                 exec='/opt/local/bin/caddy -conf /config/caddy/Caddyfile'
+                 timeout_seconds='0'>
+      <method_context>
+        <method_credential
+          group='daemon'
+          privileges='basic,!proc_session,!proc_info,!file_link_any,net_privaddr'
+          user='caddy'/>
+        <method_environment>
+          <envvar name='NS1_API_KEY' value='<%= @ns1_api_key %>'/>
+        </method_environment>
+      </method_context>
+    </exec_method>
+
     <exec_method name='stop' type='method' exec=':kill -TERM' timeout_seconds='30'/>
     <property_group name='startd' type='framework'>
       <propval name='duration' type='astring' value='child'/>
