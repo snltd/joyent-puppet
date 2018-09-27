@@ -43,7 +43,7 @@ class caddy::configure()
 
   file { '/var/tmp/caddy.xml':
     content => template('caddy/caddy.xml.erb'),
-    mode    => 0600,
+    mode    => '0600',
   } ->
 
   exec { 'caddy_svc':
