@@ -38,9 +38,16 @@ class caddy::configure()
     notify  => Service['caddy'],
   } ->
 
+  # We don't use the SMF template in the package any more, because
+  # we need to put an API key in the SMF env vars.
+
+  file { '/var/tmp/caddy.xml':
+    content => template('caddy/caddy.xml.erb'),
+    mode    => 0600,
+  } ->
+
   exec { 'caddy_svc':
-    command => '/usr/sbin/svccfg import \
-                /opt/local/lib/svc/manifest/caddy.xml',
+    command => '/usr/sbin/svccfg import /var/tmp/caddy.xml',
     unless  => '/bin/svcs caddy',
   } ->
 
