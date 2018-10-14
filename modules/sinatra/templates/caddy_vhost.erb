@@ -2,14 +2,12 @@
 <%= protocol %>://<%= @params['server_name'] %> {
   root /var/caddy/vhost/<%= @site %>
   <% if @environment == 'production' %>
-  tls {
-    dns ns1
-  }
+  tls rob@sysdef.xyz
   <% else %>
   tls off
   <% end %>
 
-  log / <%= File.join('/var/log/caddy', "#{@site}.access.log") %> "{hostonly} {remote} [{when}] \"{method} {path} {proto}\" {status} {size} {latency_ms}" {
+  log / <%= File.join('/var/log/caddy', @site, 'access.log') %> "{hostonly} {remote} [{when}] \"{method} {path} {proto}\" {status} {size} {latency_ms}" {
     rotate_size 50
     rotate_compress
     rotate_keep 5
@@ -18,6 +16,12 @@
     except /i/*
     except /favicon.ico
     except /css/*
+  }
+
+  errors <%= File.join('/var/log/caddy/', @site, 'error.log') %> {
+    rotate_size 50
+    rotate_keep 5
+    rotate_compress
   }
 
   proxy / http://localhost:<%= @params['port'] %> {
