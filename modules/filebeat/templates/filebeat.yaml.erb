@@ -1,7 +1,7 @@
 ---
 
-filebeat.prospectors:
-- input_type: log
+filebeat.inputs
+- type: log
   paths:
     - '/var/log/caddy/*/access.log'
   tail_files: true
