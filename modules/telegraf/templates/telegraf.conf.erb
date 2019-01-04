@@ -55,7 +55,6 @@
 [[inputs.solaris_smf]]
   SvcStates = ["uninitialized", "degraded", "maintenance"]
 
-<% if @role == 'sinatra' %>
-[[inputs.prometheus]]
-  urls = ["http://localhost:9180/metrics"]
-<% end %>
+[[inputs.socket_listener]]
+  service_address = "unix:///tmp/telegraf.sock"
+  data_format = "wavefront"

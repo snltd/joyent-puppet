@@ -3,7 +3,6 @@
 classes:
   - sinatra
   - caddy
-  - filebeat
 
 sinatra::sites:
   rdfisher:
