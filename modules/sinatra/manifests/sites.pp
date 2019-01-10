@@ -29,6 +29,12 @@ class sinatra::sites(
       notify  => Service['caddy'],
     }
 
+    file { "/var/log/caddy/${site}":
+      ensure => directory,
+      owner  => 'caddy',
+      group  => 'logs',
+    } ->
+
     file { "/tmp/${site}.xml":
       content => template('sinatra/service.xml.erb'),
     } ->
