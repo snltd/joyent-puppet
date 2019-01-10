@@ -7,7 +7,9 @@ classes:
 basenode::packages::absent:
   - postfix
 
-wavefront_endpoint: wavefront
+telegraf::wf_endpoint: https://metrics.wavefront.com
+telegraf::point_tags:
+  product: websites
 
 wf_report_tags:
   - status

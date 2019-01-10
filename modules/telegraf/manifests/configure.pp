@@ -2,8 +2,9 @@
 # are in ../files and the config file in ../templates.
 #
 class telegraf::configure(
-  $wavefront_endpoint = lookup(wavefront_endpoint),
-  $svc                = 'svc:/influx/telegraf:default',
+  $wf_endpoint = $telegraf::wf_endpoint,
+  $svc         = 'svc:/influx/telegraf:default',
+  $point_tags  = lookup(telegraf::point_tags, Hash, deep),
 )
 {
   user { 'telegraf':
