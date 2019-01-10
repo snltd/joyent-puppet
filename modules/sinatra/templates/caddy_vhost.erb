@@ -7,7 +7,7 @@
   tls off
   <% end %>
 
-  log / <%= File.join('/var/log/caddy', @site, 'access.log') %> "{hostonly} {remote} [{when}] \"{method} {path} {proto}\" {status} {size} {latency_ms}" {
+  log / <%= File.join('/var/log/caddy', "#{@site}_access.log") %> "{hostonly} {remote} [{when}] \"{method} {path} {proto}\" {status} {size} {latency_ms}" {
     rotate_size 50
     rotate_compress
     rotate_keep 5
@@ -18,7 +18,7 @@
     except /css/*
   }
 
-  errors <%= File.join('/var/log/caddy/', @site, 'error.log') %> {
+  errors <%= File.join('/var/log/caddy/', "#{@site}_error.log") %> {
     rotate_size 50
     rotate_keep 5
     rotate_compress
