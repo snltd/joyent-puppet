@@ -1,0 +1,23 @@
+---
+
+classes:
+  - sinatra
+  - caddy
+
+sinatra::sites:
+  rdfisher:
+    port:    8001
+    repo:    https://fury.sysdef.xyz/gem
+    default: true
+
+  cassingle:
+    port:    8002
+    repo:    https://fury.sysdef.xyz/gem/
+
+  'meetup-generator':
+    port:    8003
+    repo:    https://rubygems.org/
+
+  sysdef:
+    port:    8004
+    repo:    "https://repo.fury.io/%{::gemfury_token}/sysdef/"

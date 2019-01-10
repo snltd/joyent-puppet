@@ -1,0 +1,21 @@
+---
+
+classes:
+  - basenode
+  - telegraf
+
+basenode::packages::absent:
+  - postfix
+
+telegraf::wf_endpoint: https://metrics.wavefront.com
+telegraf::point_tags:
+  product: websites
+
+wf_report_tags:
+  - status
+  - git_rev
+  - run_by
+  - puppet_version
+  - environment
+  - role
+  - product

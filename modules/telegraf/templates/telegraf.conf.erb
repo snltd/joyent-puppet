@@ -1,7 +1,12 @@
 [global_tags]
   environment = "<%= @environment %>"
   role = "<%= @role %>"
-  colour = "<%= @colour || 'none' %>"
+<% @point_tags.each_pair do |key, value| -%>
+  <%= key %> = "<%= value %>"
+<% end -%>
+<% if @colour -%>
+  colour = "<%= @colour %>"
+<% end -%>
 
 [agent]
   interval = "20s"
@@ -15,12 +20,12 @@
   debug = false
   quiet = false
   logfile = "/var/log/telegraf/telegraf.log"
-  hostname = ""
+  hostname = "<%= @hostname %>"
   omit_hostname = false
 
 [[outputs.wavefront]]
-  host = "<%= @wavefront_endpoint %>"
-  port = 2878
+  url = "<%= @wf_endpoint %>"
+  token = "<%= @wf_token %>"
 
 [[inputs.solaris_smf]]
   SvcStates = ["offline", "uninitialized", "degraded", "maintenance"]
@@ -33,7 +38,8 @@
   Fields = ["obytes64", "rbytes64", "collisions", "ierrors", "oerrors"]
 
 [[inputs.solaris_memory]]
-  VmInfoFields = ["freemem", "swap_resv", "swap_alloc", "swap_avail", "swap_free"]
+  VmInfoFields = ["freemem", "swap_resv", "swap_alloc", "swap_avail",
+    "swap_free"]
   SwapFields = ["allocated", "used", "reserved", "available"]
   PerCpuVm = false
 
@@ -54,7 +60,6 @@
 [[inputs.solaris_smf]]
   SvcStates = ["uninitialized", "degraded", "maintenance"]
 
-<% if @role == 'sinatra' %>
-[[inputs.prometheus]]
-  urls = ["http://localhost:9180/metrics"]
-<% end %>
+[[inputs.socket_listener]]
+  service_address = "unix:///tmp/telegraf.sock"
+  data_format = "wavefront"

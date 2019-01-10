@@ -1,0 +1,6 @@
+---
+
+basenode::repo::pkgsrc_manta: "http://pkgsrc.localnet"
+
+telegraf::point_tags:
+  dc: home

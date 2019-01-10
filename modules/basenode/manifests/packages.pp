@@ -1,12 +1,12 @@
 #
-# add things we need, remove things we don't. Both lists are defined in
-# hiera.
+# Add things we need, remove things we don't. Both lists are defined
+# in hiera.
 #
 class basenode::packages(
-  $installed = undef,
-  $absent = undef,
-) {
-
+  $installed = [],
+  $absent    = [],
+)
+{
   if $installed {
     package { $installed:
       ensure => installed,
@@ -18,5 +18,4 @@ class basenode::packages(
       ensure => absent,
     }
   }
-
 }

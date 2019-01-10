@@ -1,0 +1,14 @@
+---
+
+sinatra::sites:
+  rdfisher:
+    server_name: rdfisher.co.uk
+
+  cassingle:
+    server_name: cassingle.rdfisher.co.uk
+
+  'meetup-generator':
+    server_name: meetup.sysdef.xyz
+
+  sysdef:
+    server_name: sysdef.xyz
