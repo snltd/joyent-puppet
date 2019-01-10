@@ -11,9 +11,6 @@ out = { environment:  env,
 
 if role == 'sinatra'
   out[:classes] += %w[sinatra caddy filebeat]
-elsif
-  role == 'wavefront-proxy'
-  out[:classes].<< 'wavefront_proxy'
 end
 
 puts out.to_yaml

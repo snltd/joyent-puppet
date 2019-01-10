@@ -1,8 +1,0 @@
-<% if @dns_domain -%>
-domain <%= @dns_domain %>
-search <%= @dns_domain -%>
-<% end -%>
-
-<% @dns_servers.each do |ns| %>
-nameserver <%= ns -%>
-<% end %>
