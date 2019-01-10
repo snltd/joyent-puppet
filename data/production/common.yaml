@@ -1,13 +1,8 @@
 ---
 
 basenode:
-  package_repo: https://us-east.manta.joyent.com/snltd/public
+  package_repo: https://us-east.manta.joyent.com/sysdef/public
 
-basenode::dns_client::dns_domain: svc.4c19787d-405b-477a-ab60-100a3acccd5a.eu-ams-1.cns.joyent.com
-
-basenode::dns_client::dns_servers:
-  - 8.8.8.8
-  - 8.8.4.4
-
-dc: eu-ams-1
-platform: JPC-triton
+telegraf::point_tags:
+  dc: eu-ams-1
+  platform: JPC-triton
