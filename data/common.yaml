@@ -7,7 +7,7 @@ classes:
 basenode::packages::absent:
   - postfix
 
-telegraf::wf_endpoint: https://virunga.wavefront.com
+telegraf::wf_endpoint: https://metrics.wavefront.com
 telegraf::point_tags:
   product: websites
 
