@@ -2,9 +2,9 @@
 # are in ../files and the config file in ../templates.
 #
 class telegraf::configure(
-  $point_tags  = $telegraf::point_tags,
   $wf_endpoint = $telegraf::wf_endpoint,
   $svc         = 'svc:/influx/telegraf:default',
+  $point_tags  = lookup(telegraf::point_tags, Hash, deep),
 )
 {
   user { 'telegraf':

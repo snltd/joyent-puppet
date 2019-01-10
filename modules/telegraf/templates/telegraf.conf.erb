@@ -1,12 +1,12 @@
 [global_tags]
   environment = "<%= @environment %>"
   role = "<%= @role %>"
-  <% @point_tags.each_pair do |key, value| %>
+<% @point_tags.each_pair do |key, value| -%>
   <%= key %> = "<%= value %>"
-  <% end %>
-  <% if @colour %>
+<% end -%>
+<% if @colour -%>
   colour = "<%= @colour %>"
-  <% end %>
+<% end -%>
 
 [agent]
   interval = "20s"
