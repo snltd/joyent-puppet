@@ -10,7 +10,7 @@ out = { environment:  env,
         classes:      %w[basenode telegraf] }
 
 if role == 'sinatra'
-  out[:classes] += %w[sinatra caddy filebeat]
+  out[:classes] += %w[sinatra caddy]
 elsif
   role == 'wavefront-proxy'
   out[:classes].<< 'wavefront_proxy'
