@@ -2,6 +2,9 @@
 # Just me
 #
 class basenode::users() {
+  group { 'logs':
+    gid => 66,
+  }
 
   group { 'sysadmin':
     gid => 14,
@@ -15,6 +18,7 @@ class basenode::users() {
     home       => '/home/rob',
     managehome => true,
     password   => 'NP',
+    groups     => 'logs',
     profiles   => 'Primary Administrator',
   }
 
