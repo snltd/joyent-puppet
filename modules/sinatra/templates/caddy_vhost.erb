@@ -1,5 +1,5 @@
 <% if @environment == 'production' %>
-*.<%= @params['server_name'].split('.')[-2..-1] %> {
+<%= @params['cert_domain'] %> {
   tls rob@sysdef.xyz {
     dns ns1
   }
