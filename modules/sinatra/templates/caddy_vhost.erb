@@ -1,4 +1,4 @@
-<%= @params['server_name'] %> {
+<%= @params['server_cert'] || @params['server_name'] %> {
   root /var/caddy/vhost/<%= @site %>
 
 <% if @environment == 'production'-%>
