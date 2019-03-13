@@ -63,3 +63,6 @@
 [[inputs.socket_listener]]
   service_address = "unix:///tmp/telegraf.sock"
   data_format = "wavefront"
+
+[[inputs.puppetagent]]
+  location = "/opt/puppetlabs/puppet/cache/state/last_run_summary.yaml"
