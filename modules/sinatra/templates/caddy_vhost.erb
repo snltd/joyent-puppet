@@ -1,11 +1,13 @@
-<%- protocol = @environment == 'production' ? 'https' : 'http' %>
-<%= protocol %>://<%= @params['server_name'] %> {
+<%= @params['server_cert'] || @params['server_name'] %> {
   root /var/caddy/vhost/<%= @site %>
-  <% if @environment == 'production' %>
-  tls rob@sysdef.xyz
-  <% else %>
+
+<% if @environment == 'production'-%>
+  tls rob@sysdef.xyz {
+    dns ns1
+  }
+<% else -%>
   tls off
-  <% end %>
+<% end -%>
 
   log / <%= File.join('/var/log/caddy', "#{@site}_access.log") %> "{hostonly} {remote} [{when}] \"{method} {path} {proto}\" {status} {size} {latency_ms}" {
     rotate_size 50

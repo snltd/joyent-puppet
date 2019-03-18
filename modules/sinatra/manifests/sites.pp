@@ -36,7 +36,7 @@ class sinatra::sites(
     exec { "import_${site}_manifest":
       command => "/usr/sbin/svccfg import /tmp/${site}.xml",
       require => File["/tmp/${site}.xml"],
-      unless  => "/usr/bin/svcs ${site}",
+      unless  => "/usr/bin/svcs svc:/sysdef/sinatra/${site}:default",
     } ->
 
     service { $svc:

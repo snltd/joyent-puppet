@@ -5,10 +5,10 @@ sinatra::sites:
     server_name: rdfisher.co.uk
 
   cassingle:
-    server_name: cassingle.rdfisher.co.uk
+    server_cert: '*.id264.net'
 
   'meetup-generator':
-    server_name: meetup.sysdef.xyz
+    server_cert: '*.sysdef.xyz'
 
   sysdef:
     server_name: sysdef.xyz
