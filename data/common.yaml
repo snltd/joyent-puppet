@@ -5,7 +5,7 @@ classes:
   - telegraf
 
 basenode::packages::absent:
-  - postfix
+  []
 
 telegraf::wf_endpoint: https://metrics.wavefront.com
 telegraf::point_tags:
